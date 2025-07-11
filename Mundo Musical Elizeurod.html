@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Meus Lançamentos Musicais</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif; /* Alterado para Montserrat */
+            background: linear-gradient(270deg, #0f0c29, #302b63, #24243e);
+            background-size: 600% 600%;
+            animation: fundoAnimado 20s ease infinite;
+            color: white;
+            line-height: 1.6;
+        }
+
+        @keyframes fundoAnimado {
+            0% {background-position: 0% 50%;}
+            50% {background-position: 100% 50%;}
+            100% {background-position: 0% 50%;}
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 3rem 1rem;
+            background-color: rgba(0, 0, 0, 0.4);
+            border-radius: 20px;
+            margin: 1rem;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3rem; /* Aumentado o tamanho da fonte */
+            font-weight: 700;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            font-weight: 300;
+            color: #ccc;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap; /* Permite que os itens quebrem linha em telas pequenas */
+            gap: 1.5rem; /* Espaçamento entre os itens */
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 20px;
+            margin: 0 1rem 2rem 1rem; /* Adicionado margem inferior */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #72c7ff;
+        }
+
+        main {
+            padding: 0 1rem; /* Ajustado o padding */
+        }
+
+        section {
+            background-color: rgba(255, 255, 255, 0.08); /* Mais visível */
+            padding: 2rem;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        section h2 {
+            font-size: 2rem;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            color: #72c7ff; /* Cor destacada para títulos de seção */
+            text-align: center;
+            font-weight: 700;
+            position: relative;
+        }
+
+        section h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: #1db954; /* Linha decorativa abaixo do título */
+            margin: 0.5rem auto 0;
+            border-radius: 2px;
+        }
+
+        .musica {
+            background-color: rgba(255, 255, 255, 0.15); /* Mais opaco para destaque */
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column; /* Coluna em telas pequenas */
+            align-items: center;
+            gap: 1.5rem; /* Aumentado o espaçamento */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .musica:hover {
+            transform: translateY(-5px); /* Efeito de elevação ao passar o mouse */
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+        }
+
+        @media (min-width: 768px) {
+            .musica {
+                flex-direction: row; /* Volta para linha em telas maiores */
+                text-align: left;
+            }
+        }
+
+        .capa-single {
+            width: 150px; /* Aumentado o tamanho da capa */
+            height: 150px;
+            object-fit: cover;
+            border-radius: 15px;
+            flex-shrink: 0;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .info-musica {
+            flex-grow: 1;
+            text-align: center; /* Centraliza o texto em telas pequenas */
+        }
+
+        @media (min-width: 768px) {
+            .info-musica {
+                text-align: left; /* Volta para alinhamento à esquerda em telas maiores */
+            }
+        }
+
+        .info-musica h2 {
+            font-size: 1.8rem;
+            margin: 0 0 0.5rem 0;
+            color: #fff;
+            font-weight: 700;
+            text-align: inherit; /* Remove o alinhamento center global */
+        }
+        
+        .info-musica h2::after {
+            display: none; /* Remove a linha abaixo do h2 interno */
+        }
+
+
+        .info-musica p {
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #ddd;
+            margin: 0.5rem 0;
+        }
+
+        .info-musica .data-lancamento {
+            font-weight: 600;
+            color: #72c7ff;
+            display: block; /* Cada info em uma linha separada em telas pequenas */
+            margin-bottom: 0.5rem;
+        }
+
+        .info-musica .descricao {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-musica a.escutar-link {
+            background: #1db954; /* verde Spotify */
+            color: white;
+            padding: 10px 20px; /* Aumentado o padding */
+            border-radius: 25px; /* Mais arredondado */
+            font-weight: 600;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: inline-block; /* Para aplicar padding e margem */
+            margin-top: 1rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .info-musica a.escutar-link:hover {
+            background-color: #1ed760;
+            transform: translateY(-2px); /* Pequena elevação ao passar o mouse */
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: #ccc;
+            border-radius: 20px 20px 0 0;
+            margin: 0 1rem;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.2);
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .icon {
+            width: 24px; /* Aumentado o tamanho dos ícones */
+            height: 24px;
+            vertical-align: middle;
+            margin-right: 10px;
+            filter: drop-shadow(0 0 3px rgba(255,255,255,0.5)); /* Sombra para ícones */
+        }
+
+        .contato-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+
+        .contato-link:hover {
+            color: #72c7ff;
+        }
+
+        /* Responsividade para telas menores */
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            nav a {
+                padding: 0.5rem;
+                font-size: 1rem;
+            }
+
+            section {
+                padding: 1.5rem;
+            }
+
+            section h2 {
+                font-size: 1.5rem;
+            }
+
+            .musica {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .capa-single {
+                width: 100px;
+                height: 100px;
+            }
+
+            .info-musica h2 {
+                font-size: 1.5rem;
+            }
+
+            .info-musica .data-lancamento,
+            .info-musica .descricao {
+                display: block;
+                margin-bottom: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Bem-vindo ao Meu Mundo Musical</h1>
+            <p>Confira os lançamentos mais recentes e outras novidades!</p>
+        </div>
+    </header>
+
+    <nav>
+        <a href="#lancamentos">Lançamentos</a>
+        <a href="#clipes">Videoclipes</a>
+        <a href="#agenda">Agenda</a>
+        <a href="#contato">Contato</a>
+    </nav>
+
+    <main class="container">
+        <section id="lancamentos">
+            <h2>Últimos Lançamentos</h2>
+
+            <div class="musica">
+                <img src="https://i.scdn.co/image/ab67616d0000b2738e38defcfc39f30acdbc2734" alt="Capa do Single Elixir" class="capa-single" />
+                <div class="info-musica">
+                    <h2>Elixir</h2>
+                    <p>
+                        <span class="data-lancamento">Lançado em: 10 de Maio de 2025</span>
+                        <span class="descricao">Single recente com batidas envolventes e letras inspiradoras. Uma jornada sonora que transcende o comum.</span>
+                        <a href="https://open.spotify.com/intl-pt/track/5JFneYEe4rUkgi6cskWz1C?si=1e74075d03f54448" target="_blank" class="escutar-link">Ouça no Spotify</a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="musica">
+                <img src="https://i.scdn.co/image/ab67616d0000b27347163223826d1211b7eaa6df" alt="Capa do Single Ascend" class="capa-single" />
+                <div class="info-musica">
+                    <h2>Ascend</h2>
+                    <p>
+                        <span class="data-lancamento">Lançado em: 25 de Abril de 2025</span>
+                        <span class="descricao">Uma faixa energética perfeita para levantar o astral e impulsionar seus dias. Não deixe de conferir!</span>
+                        <a href="https://open.spotify.com/intl-pt/track/4YCpFCPVudHXvuuWog0U8w?si=d3f8b2011b7a4be0" target="_blank" class="escutar-link">Ouça no Spotify</a>
+                    </p>
+                </div>
+            </div>
+            
+            <div class="musica">
+                <img src="https://i.scdn.co/image/ab67616d0000b27393278918ddf0ef29185e3c88" alt="Capa do Single Vibrações" class="capa-single" />
+                <div class="info-musica">
+                    <h2>Vibrações</h2>
+                    <p>
+                        <span class="data-lancamento">Lançado em: 15 de Março de 2025</span>
+                        <span class="descricao">Uma melodia suave que te transporta para um estado de pura tranquilidade e bem-estar.</span>
+                        <a href="http://googleusercontent.com/spotify.com/2" target="_blank" class="escutar-link">Ouça no Spotify</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="clipes">
+            <h2>Videoclipes</h2>
+            <p>Em breve, aqui você encontrará os links e vídeos incorporados dos meus clipes mais recentes no YouTube e em outras plataformas!</p>
+            <div style="text-align: center; margin-top: 2rem;">
+                <iframe width="560" height="315" src="hhttps://www.youtube.com/watch?v=i6Jv0gxY6Dc&list=OLAK5uy_kqPQWvzCPf_u6bZ6zKyAuVsz_eBU4Htns" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="max-width: 100%; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);"></iframe>
+                <p style="font-style: italic; color: #bbb; margin-top: 1rem;">*Este é um vídeo de exemplo, substitua pelo seu clipe!</p>
+            </div>
+        </section>
+
+        <section id="agenda">
+            <h2>Agenda</h2>
+            <p>Fique por dentro dos próximos eventos, shows, lives e outras participações!</p>
+            <ul>
+                <li>**25 de Julho de 2025:** Lançamento do novo single "Horizonte Distante" - Disponível em todas as plataformas.</li>
+                <li>**10 de Agosto de 2025:** Live especial de perguntas e respostas no Instagram - Fique ligado no meu perfil!</li>
+                <li>**20 de Setembro de 2025:** Show acústico em [Nome da Cidade, Local] - Detalhes em breve!</li>
+                <li>**05 de Outubro de 2025:** Participação em podcast musical - Mais informações serão divulgadas.</li>
+            </ul>
+        </section>
+
+        <section id="contato">
+            <h2>Contato</h2>
+            <p>Quer entrar em contato, fazer uma parceria ou apenas mandar um alô? Me encontre nas redes sociais e por e-mail!</p>
+            <p>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Gmail_Icon.png" alt="Gmail" class="icon" />
+                <a href="mailto:elizeuzinho294@gmail.com" class="contato-link">elizeuzinho294@gmail.com</a>
+            </p>
+            <p>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" class="icon" />
+                <a href="https://instagram.com/elizeurod.sx" target="_blank" class="contato-link">@elizeurod.sx</a>
+            </p>
+            <p>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="icon" />
+                <a href="https://wa.me/5565999922408" target="_blank" class="contato-link">(55) 65 99992-2408</a>
+            </p>
+            <p style="margin-top: 1.5rem; font-style: italic; color: #bbb;">Siga para mais novidades e interações!</p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            © 2025 elizeurod. Todos os direitos reservados.
+        </div>
+    </footer>
+</body>
+</html>
