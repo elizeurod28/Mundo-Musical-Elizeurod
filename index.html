@@ -4,20 +4,33 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Meus Lançamentos Musicais</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3792334881184352"
       crossorigin="anonymous"></script>
     <style>
+        :root {
+            --cor-fundo-primaria: #0f0c29;
+            --cor-fundo-secundaria: #302b63;
+            --cor-fundo-terciaria: #24243e;
+            --cor-destaque-azul: #00eaff; /* Azul elétrico */
+            --cor-destaque-roxo: #9d00ff; /* Roxo vibrante */
+            --cor-destaque-verde: #1db954; /* Verde Spotify, mantido por ser vibrante */
+            --cor-texto-claro: #e0f7fa; /* Quase branco, com um toque de azul */
+            --cor-texto-secundario: #b3e5fc; /* Azul claro */
+            --transicao-rapida: 0.2s ease-in-out;
+            --transicao-lenta: 0.4s ease-in-out;
+        }
+
         body, html {
             margin: 0;
             padding: 0;
-            font-family: 'Montserrat', sans-serif; /* Alterado para Montserrat */
-            background: linear-gradient(270deg, #0f0c29, #302b63, #24243e);
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(270deg, var(--cor-fundo-primaria), var(--cor-fundo-secundaria), var(--cor-fundo-terciaria));
             background-size: 600% 600%;
-            animation: fundoAnimado 20s ease infinite;
-            color: white;
+            animation: fundoAnimado 25s ease infinite; /* Animação mais lenta e suave */
+            color: var(--cor-texto-claro);
             line-height: 1.6;
+            overflow-x: hidden; /* Evita scroll horizontal em algumas animações */
         }
 
         @keyframes fundoAnimado {
@@ -25,6 +38,28 @@
             50% {background-position: 100% 50%;}
             100% {background-position: 0% 50%;}
         }
+
+        /* Efeito de partículas no fundo (opcional, pode ser pesado) */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top left, rgba(0, 234, 255, 0.1) 0%, transparent 30%),
+                        radial-gradient(circle at bottom right, rgba(157, 0, 255, 0.1) 0%, transparent 30%);
+            pointer-events: none;
+            z-index: -1;
+            animation: pulseGlow 15s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+            100% { opacity: 0.7; transform: scale(1); }
+        }
+
 
         .container {
             max-width: 1000px;
@@ -35,234 +70,358 @@
         header {
             text-align: center;
             padding: 3rem 1rem;
-            background-color: rgba(0, 0, 0, 0.4);
-            border-radius: 20px;
+            background-color: rgba(0, 0, 0, 0.6); /* Mais escuro */
+            border-radius: 25px; /* Mais arredondado */
             margin: 1rem;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 10px 40px 0 rgba(0, 234, 255, 0.2), 0 0 20px rgba(157, 0, 255, 0.3); /* Sombras com brilho */
+            backdrop-filter: blur(8px); /* Mais blur */
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(0, 234, 255, 0.3); /* Borda com cor de destaque */
+            position: relative;
+            overflow: hidden; /* Para o efeito de brilho */
+        }
+
+        header::before { /* Efeito de brilho sutil no header */
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 234, 255, 0.2) 0%, transparent 70%);
+            transform: rotate(45deg);
+            animation: headerGlow 10s infinite linear;
+            opacity: 0.3;
+        }
+
+        @keyframes headerGlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
         header h1 {
+            font-family: 'Orbitron', sans-serif; /* Fonte futurista para títulos */
             margin: 0;
-            font-size: 3rem; /* Aumentado o tamanho da fonte */
+            font-size: 3.5rem; /* Aumentado */
             font-weight: 700;
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+            text-shadow: 0 0 15px var(--cor-destaque-azul), 0 0 25px var(--cor-destaque-roxo); /* Brilho neon */
+            letter-spacing: 2px; /* Espaçamento entre letras */
         }
 
         header p {
-            font-size: 1.2rem;
+            font-size: 1.3rem; /* Aumentado */
             font-weight: 300;
-            color: #ccc;
+            color: var(--cor-texto-secundario);
+            text-shadow: 0 0 8px rgba(0, 234, 255, 0.2);
         }
 
         nav {
             display: flex;
             justify-content: center;
-            flex-wrap: wrap; /* Permite que os itens quebrem linha em telas pequenas */
-            gap: 1.5rem; /* Espaçamento entre os itens */
-            background-color: rgba(0, 0, 0, 0.3);
+            flex-wrap: wrap;
+            gap: 1rem; /* Espaçamento menor */
+            background-color: rgba(0, 0, 0, 0.5); /* Mais escuro */
             padding: 1rem;
-            border-radius: 20px;
-            margin: 0 1rem 2rem 1rem; /* Adicionado margem inferior */
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            backdrop-filter: blur(3px);
-            -webkit-backdrop-filter: blur(3px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            margin: 0 1rem 2.5rem 1rem; /* Mais margem inferior */
+            box-shadow: 0 5px 20px rgba(0, 234, 255, 0.15), 0 0 10px rgba(157, 0, 255, 0.2);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border: 1px solid rgba(157, 0, 255, 0.2);
         }
 
         nav a {
-            color: #fff;
+            color: var(--cor-texto-claro);
             text-decoration: none;
             font-weight: 600;
-            font-size: 1.1rem;
-            padding: 0.5rem 1rem;
-            border-radius: 10px;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            font-size: 1.15rem; /* Levemente maior */
+            padding: 0.7rem 1.2rem; /* Mais padding */
+            border-radius: 15px; /* Mais arredondado */
+            transition: all var(--transicao-rapida);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        nav a::before { /* Efeito de hover futurista */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 234, 255, 0.3), transparent);
+            transition: all var(--transicao-rapida);
+            z-index: -1;
+        }
+
+        nav a:hover::before {
+            left: 0;
         }
 
         nav a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-            color: #72c7ff;
+            color: var(--cor-destaque-azul);
+            text-shadow: 0 0 8px var(--cor-destaque-azul);
+            background-color: rgba(0, 234, 255, 0.1);
+            border: 1px solid var(--cor-destaque-azul);
+            transform: translateY(-3px);
         }
 
         main {
-            padding: 0 1rem; /* Ajustado o padding */
+            padding: 0 1rem;
         }
 
         section {
-            background-color: rgba(255, 255, 255, 0.08); /* Mais visível */
-            padding: 2rem;
-            border-radius: 20px;
-            margin-bottom: 2rem;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            background-color: rgba(255, 255, 255, 0.05); /* Mais sutil */
+            padding: 2.5rem; /* Mais padding */
+            border-radius: 25px;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 10px 40px 0 rgba(0, 234, 255, 0.1), 0 0 20px rgba(157, 0, 255, 0.2);
+            backdrop-filter: blur(10px); /* Mais blur */
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(157, 0, 255, 0.25);
+            position: relative;
+            overflow: hidden;
         }
 
         section h2 {
-            font-size: 2rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem; /* Aumentado */
             margin-top: 0;
-            margin-bottom: 1.5rem;
-            color: #72c7ff; /* Cor destacada para títulos de seção */
+            margin-bottom: 2rem;
+            color: var(--cor-destaque-roxo); /* Cor de destaque para títulos de seção */
             text-align: center;
             font-weight: 700;
             position: relative;
+            text-shadow: 0 0 10px var(--cor-destaque-roxo);
+            letter-spacing: 1px;
         }
 
         section h2::after {
             content: '';
             display: block;
-            width: 80px;
-            height: 4px;
-            background: #1db954; /* Linha decorativa abaixo do título */
-            margin: 0.5rem auto 0;
-            border-radius: 2px;
+            width: 100px; /* Mais largo */
+            height: 5px; /* Mais grosso */
+            background: linear-gradient(90deg, transparent, var(--cor-destaque-azul), transparent); /* Gradiente */
+            margin: 0.8rem auto 0;
+            border-radius: 3px;
+            box-shadow: 0 0 10px var(--cor-destaque-azul);
         }
 
         .musica {
-            background-color: rgba(255, 255, 255, 0.15); /* Mais opaco para destaque */
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
+            background-color: rgba(255, 255, 255, 0.1); /* Mais sutil */
+            padding: 2rem; /* Mais padding */
+            margin-bottom: 2rem;
             border-radius: 20px;
             display: flex;
-            flex-direction: column; /* Coluna em telas pequenas */
+            flex-direction: column;
             align-items: center;
-            gap: 1.5rem; /* Aumentado o espaçamento */
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            gap: 2rem; /* Mais espaçamento */
+            transition: all var(--transicao-lenta);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            border: 1px solid rgba(0, 234, 255, 0.1);
+            position: relative;
+            overflow: hidden;
         }
 
         .musica:hover {
-            transform: translateY(-5px); /* Efeito de elevação ao passar o mouse */
-            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            transform: translateY(-8px) scale(1.02); /* Efeito de elevação e leve aumento */
+            box-shadow: 0 15px 30px rgba(0, 234, 255, 0.2), 0 0 20px rgba(157, 0, 255, 0.3);
+            border-color: var(--cor-destaque-roxo);
         }
+
+        .musica::before { /* Efeito de borda brilhante ao passar o mouse */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 20px;
+            padding: 2px; /* Espessura da borda de brilho */
+            background: linear-gradient(45deg, var(--cor-destaque-azul), var(--cor-destaque-roxo));
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity var(--transicao-lenta);
+            z-index: -1;
+        }
+
+        .musica:hover::before {
+            opacity: 1;
+        }
+
 
         @media (min-width: 768px) {
             .musica {
-                flex-direction: row; /* Volta para linha em telas maiores */
+                flex-direction: row;
                 text-align: left;
             }
         }
 
         .capa-single {
-            width: 150px; /* Aumentado o tamanho da capa */
-            height: 150px;
+            width: 180px; /* Maior */
+            height: 180px;
             object-fit: cover;
-            border-radius: 15px;
+            border-radius: 20px; /* Mais arredondado */
             flex-shrink: 0;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            border: 4px solid var(--cor-destaque-azul); /* Borda mais grossa e colorida */
+            box-shadow: 0 5px 15px rgba(0, 234, 255, 0.3), 0 0 15px var(--cor-destaque-azul); /* Brilho na capa */
+            transition: all var(--transicao-rapida);
+        }
+
+        .musica:hover .capa-single {
+            transform: scale(1.05);
+            border-color: var(--cor-destaque-roxo);
+            box-shadow: 0 5px 20px rgba(157, 0, 255, 0.4), 0 0 20px var(--cor-destaque-roxo);
         }
 
         .info-musica {
             flex-grow: 1;
-            text-align: center; /* Centraliza o texto em telas pequenas */
+            text-align: center;
         }
 
         @media (min-width: 768px) {
             .info-musica {
-                text-align: left; /* Volta para alinhamento à esquerda em telas maiores */
+                text-align: left;
             }
         }
 
         .info-musica h2 {
-            font-size: 1.8rem;
-            margin: 0 0 0.5rem 0;
-            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem; /* Aumentado */
+            margin: 0 0 0.8rem 0;
+            color: var(--cor-texto-claro);
             font-weight: 700;
-            text-align: inherit; /* Remove o alinhamento center global */
+            text-align: inherit;
+            text-shadow: 0 0 10px var(--cor-destaque-azul);
         }
         
         .info-musica h2::after {
-            display: none; /* Remove a linha abaixo do h2 interno */
+            display: none;
         }
 
-
         .info-musica p {
-            font-size: 1rem;
-            line-height: 1.5;
-            color: #ddd;
-            margin: 0.5rem 0;
+            font-size: 1.1rem; /* Levemente maior */
+            line-height: 1.6;
+            color: var(--cor-texto-secundario);
+            margin: 0.7rem 0;
         }
 
         .info-musica .data-lancamento {
             font-weight: 600;
-            color: #72c7ff;
-            display: block; /* Cada info em uma linha separada em telas pequenas */
-            margin-bottom: 0.5rem;
+            color: var(--cor-destaque-azul);
+            display: block;
+            margin-bottom: 0.8rem;
+            text-shadow: 0 0 5px rgba(0, 234, 255, 0.2);
         }
 
         .info-musica .descricao {
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
         }
 
         .info-musica a.escutar-link {
-            background: #1db954; /* verde Spotify */
+            background: linear-gradient(90deg, var(--cor-destaque-verde), #1ed760); /* Gradiente Spotify */
             color: white;
-            padding: 10px 20px; /* Aumentado o padding */
-            border-radius: 25px; /* Mais arredondado */
-            font-weight: 600;
+            padding: 12px 25px; /* Mais padding */
+            border-radius: 30px; /* Mais arredondado */
+            font-weight: 700;
             text-decoration: none;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            display: inline-block; /* Para aplicar padding e margem */
-            margin-top: 1rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: all var(--transicao-rapida);
+            display: inline-block;
+            margin-top: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 234, 255, 0.2); /* Sombra com brilho */
+            border: none;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .info-musica a.escutar-link::before { /* Efeito de brilho no botão */
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0%, transparent 70%);
+            transform: rotate(45deg);
+            transition: all var(--transicao-rapida);
+            opacity: 0;
+            z-index: -1;
+        }
+
+        .info-musica a.escutar-link:hover::before {
+            opacity: 1;
+            transform: rotate(45deg) scale(1.1);
         }
 
         .info-musica a.escutar-link:hover {
-            background-color: #1ed760;
-            transform: translateY(-2px); /* Pequena elevação ao passar o mouse */
+            background: linear-gradient(90deg, #1ed760, var(--cor-destaque-verde));
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 234, 255, 0.3), 0 0 15px var(--cor-destaque-verde);
         }
 
         footer {
             text-align: center;
-            padding: 1.5rem;
-            background-color: rgba(0, 0, 0, 0.3);
-            color: #ccc;
-            border-radius: 20px 20px 0 0;
+            padding: 2rem; /* Mais padding */
+            background-color: rgba(0, 0, 0, 0.5);
+            color: var(--cor-texto-secundario);
+            border-radius: 25px 25px 0 0;
             margin: 0 1rem;
-            box-shadow: 0 -4px 15px rgba(0,0,0,0.2);
-            backdrop-filter: blur(3px);
-            -webkit-backdrop-filter: blur(3px);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 -5px 20px rgba(0, 234, 255, 0.15), 0 0 10px rgba(157, 0, 255, 0.2);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border-top: 1px solid rgba(157, 0, 255, 0.2);
         }
 
         .icon {
-            width: 24px; /* Aumentado o tamanho dos ícones */
-            height: 24px;
+            width: 28px; /* Maior */
+            height: 28px;
             vertical-align: middle;
-            margin-right: 10px;
-            filter: drop-shadow(0 0 3px rgba(255,255,255,0.5)); /* Sombra para ícones */
+            margin-right: 12px;
+            filter: drop-shadow(0 0 8px rgba(0, 234, 255, 0.5)); /* Brilho mais intenso */
+            transition: filter var(--transicao-rapida), transform var(--transicao-rapida);
         }
 
         .contato-link {
-            color: #fff;
+            color: var(--cor-texto-claro);
             text-decoration: none;
-            font-weight: 400;
-            transition: color 0.3s ease;
+            font-weight: 500;
+            transition: color var(--transicao-rapida), text-shadow var(--transicao-rapida);
         }
 
         .contato-link:hover {
-            color: #72c7ff;
+            color: var(--cor-destaque-azul);
+            text-shadow: 0 0 10px var(--cor-destaque-azul);
+        }
+
+        .contato-link:hover + .icon { /* Efeito no ícone ao passar o mouse no link */
+            filter: drop-shadow(0 0 12px var(--cor-destaque-roxo));
+            transform: scale(1.1);
         }
 
         /* Responsividade para telas menores */
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             header h1 {
-                font-size: 2rem;
+                font-size: 2.5rem;
+            }
+
+            header p {
+                font-size: 1rem;
             }
 
             nav {
                 flex-direction: column;
-                gap: 0.5rem;
+                gap: 0.8rem;
             }
 
             nav a {
-                padding: 0.5rem;
+                padding: 0.6rem 1rem;
                 font-size: 1rem;
             }
 
@@ -271,38 +430,58 @@
             }
 
             section h2 {
-                font-size: 1.5rem;
+                font-size: 2rem;
+                margin-bottom: 1.5rem;
             }
 
             .musica {
                 flex-direction: column;
                 text-align: center;
+                padding: 1.5rem;
+                gap: 1rem;
             }
 
             .capa-single {
-                width: 100px;
-                height: 100px;
+                width: 120px;
+                height: 120px;
+                border-radius: 15px;
             }
 
             .info-musica h2 {
-                font-size: 1.5rem;
+                font-size: 1.6rem;
             }
 
-            .info-musica .data-lancamento,
-            .info-musica .descricao {
-                display: block;
-                margin-bottom: 0.5rem;
+            .info-musica p {
+                font-size: 0.95rem;
+            }
+
+            .info-musica a.escutar-link {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+
+            .icon {
+                width: 22px;
+                height: 22px;
+                margin-right: 8px;
             }
         }
 
-        /* Estilo para o contêiner do anúncio, se desejar */
+        /* Estilo para o contêiner do anúncio */
         .adsense-container {
             text-align: center;
-            margin: 2rem 0;
-            background-color: rgba(255, 255, 255, 0.05);
-            padding: 1rem;
-            border-radius: 15px;
-            border: 1px dashed rgba(255, 255, 255, 0.2);
+            margin: 2.5rem 0;
+            background-color: rgba(255, 255, 255, 0.03); /* Mais sutil */
+            padding: 1.5rem;
+            border-radius: 20px;
+            border: 1px dashed rgba(0, 234, 255, 0.2); /* Borda tracejada com brilho */
+            box-shadow: 0 0 15px rgba(0, 234, 255, 0.1);
+        }
+
+        .adsense-container p {
+            color: var(--cor-texto-secundario);
+            font-style: italic;
+            text-shadow: 0 0 5px rgba(0, 234, 255, 0.1);
         }
     </style>
 
@@ -419,7 +598,7 @@
             <p>Em breve, aqui você encontrará os links e vídeos incorporados dos meus clipes mais recentes no YouTube e em outras plataformas!</p>
             <div style="text-align: center; margin-top: 2rem;">
                 <iframe width="560" height="315" src="https://www.youtube.com/watch?v=i6Jv0gxY6Dc&list=OLAK5uy_kqPQWvzCPf_u6bZ6zKyAuVsz_eBU4Htns" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="max-width: 100%; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);"></iframe>
-                <p style="font-style: italic; color: #bbb; margin-top: 1rem;">*Este é um vídeo de exemplo, substitua pelo seu clipe!</p>
+                <p style="font-style: italic; color: var(--cor-texto-secundario); margin-top: 1rem; text-shadow: 0 0 5px rgba(0, 234, 255, 0.1);">*Este é um vídeo de exemplo, substitua pelo seu clipe!</p>
             </div>
         </section>
 
@@ -446,7 +625,7 @@
                 <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="icon" />
                 <a href="https://wa.me/5565999922408" target="_blank" class="contato-link">(55) 65 99992-2408</a>
             </p>
-            <p style="margin-top: 1.5rem; font-style: italic; color: #bbb;">Siga para mais novidades e interações!</p>
+            <p style="margin-top: 1.5rem; font-style: italic; color: var(--cor-texto-secundario); text-shadow: 0 0 5px rgba(0, 234, 255, 0.1);">Siga para mais novidades e interações!</p>
         </section>
     </main>
 
