@@ -569,6 +569,32 @@
         }
     </style>
 </head>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyD-EYsmNlVLhMP2jgX2ULXBH7DAAmXHySo",
+    authDomain: "mundo-musical-elizeurod.firebaseapp.com",
+    databaseURL: "https://console.firebase.google.com/u/0/project/mundo-musical-elizeurod/firestore/databases/-default-/data",
+    projectId: "mundo-musical-elizeurod",
+    storageBucket: "mundo-musical-elizeurod.firebasestorage.app",
+    messagingSenderId: "774348653755",
+    appId: "1:774348653755:web:2d3716b2967249f1a4159e"
+  };
+  firebase.initializeApp(firebaseConfig);
+
+  // Contador de visitas
+  const db = firebase.database();
+  const visitsRef = db.ref('visits');
+  
+  visitsRef.transaction((currentCount) => {
+    return (currentCount || 0) + 1;
+  });
+  visitsRef.on('value', (snapshot) => {
+  document.getElementById('visitCount').textContent = 
+    `Total de visitas: ${snapshot.val()}`;
+});
+</script>
 <body>
     
     <header>
@@ -788,11 +814,12 @@
         </div>
     </div>
 
-    <footer>
-        <div class="container">
-            © 2025 elizeurod. Todos os direitos reservados.
-        </div>
-    </footer>
+<footer>
+  <div class="container">
+    © 2025 elizeurod. Todos os direitos reservados.
+    <div id="visitCount" style="margin-top: 10px; font-size: 0.9em;"></div>
+  </div>
+</footer>
 
     <script>
         // Sistema de abas
